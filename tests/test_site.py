@@ -21,7 +21,7 @@ REQUIRED_LINKS = [
 ]
 REQUIRED_TEXT = [
     "Senior Software Engineer", "WIN Technology", "Eau Claire, WI", "2019",
-    "Kubernetes", "Ansible", "platform engineering", "SharkOps", "shark-ng-table",
+    "Kubernetes", "Ansible", "platform engineering", "SharkOps", "shark-ng-table", "Quantas",
 ]
 FORBIDDEN_TEXT = ["Nelnet", "gitshark", "QLAN", "shark-ci-server", "dbUnit", "QuantasNet"]
 SHARK_NG_TABLE_DEMO = "https://quantas.github.io/shark-ng-table/"

@@ -1,0 +1,279 @@
+/*
+ * Direction: a quiet two-column CV in cool sea-ink tones, one typeface
+ * (Schibsted Grotesk, variable). The single memorable element is the
+ * waterline under the name, a nod to the shark naming across the projects;
+ * it sweeps in once on load and is still under prefers-reduced-motion.
+ * Everything else stays plain: no cards, no shadows, no labels.
+ */
+
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f5f8f9;
+  --ink: #14212b;
+  --muted: #55636f;
+  --rule: #d3dce1;
+  --accent: #0a6b75;
+  --focus: #0a6b75;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d151c;
+    --ink: #e4ebee;
+    --muted: #9aa8b3;
+    --rule: #22313c;
+    --accent: #5ec3ca;
+    --focus: #5ec3ca;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0d151c;
+  --ink: #e4ebee;
+  --muted: #9aa8b3;
+  --rule: #22313c;
+  --accent: #5ec3ca;
+  --focus: #5ec3ca;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  font-kerning: normal;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.page {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 7rem) max(1.25rem, env(safe-area-inset-left)) 3rem;
+}
+
+/* Intro */
+
+.intro h1 {
+  margin: 0;
+  font-size: clamp(2.75rem, 9.5vw, 6.75rem);
+  font-weight: 750;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.waterline {
+  display: block;
+  width: 100%;
+  height: 1.25rem;
+  margin: 1.25rem 0 1.75rem;
+  overflow: visible;
+}
+
+.waterline path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Reveal left to right once. The resting state is the unclipped line, so
+   anything that skips the animation still shows it. */
+.waterline {
+  animation: reveal 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.15s backwards;
+}
+
+@keyframes reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waterline {
+    animation: none;
+  }
+}
+
+.handle {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.lead {
+  max-width: 36ch;
+  margin: 0;
+  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+  font-weight: 450;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 550;
+}
+
+/* Sections: heading in a narrow left column, content on the right */
+
+main {
+  margin-top: clamp(4rem, 10vw, 7rem);
+}
+
+.block {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 0 2.5rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.block h2 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.body {
+  max-width: 40rem;
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body p {
+  margin: 0 0 1rem;
+}
+
+.body h3 {
+  margin: 2.25rem 0 0.5rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.body h3 a:hover {
+  color: var(--accent);
+}
+
+.role {
+  color: var(--muted);
+}
+
+.role strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.projects {
+  margin: 1.25rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.projects li {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.projects li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.projects a {
+  font-weight: 600;
+}
+
+.projects span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9688rem;
+  line-height: 1.5;
+}
+
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  font-weight: 550;
+}
+
+/* Footer */
+
+.foot {
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.foot p {
+  margin: 0;
+}
+
+@media (max-width: 44rem) {
+  .block {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 2rem 0;
+  }
+
+  .block h2 {
+    margin-bottom: 1rem;
+  }
+}

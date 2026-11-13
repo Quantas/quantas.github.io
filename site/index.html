@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Andrew Landsverk</title>
+  <meta name="description" content="Andrew Landsverk (Quantas): Senior Software Engineer at WIN Technology, working on Kubernetes, infrastructure automation and platform engineering. Maintainer of SharkOps.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="intro">
+      <h1>Andrew Landsverk</h1>
+      <svg class="waterline" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0 12 C 50 2, 100 2, 150 12 S 250 22, 300 12 S 400 2, 450 12 S 550 22, 600 12 S 700 2, 750 12 S 850 22, 900 12 S 1000 2, 1050 12 S 1150 22, 1200 12"/>
+      </svg>
+      <p class="handle">Quantas on GitHub and most other places.</p>
+      <p class="lead">Senior Software Engineer at WIN Technology. I run Kubernetes platforms, automate the infrastructure under them, and write the software that holds it all together.</p>
+      <ul class="contact">
+        <li><a href="mailto:andrew@quantasnet.com">andrew@quantasnet.com</a></li>
+        <li><a href="https://www.linkedin.com/in/andrew-landsverk-12a2b121/">LinkedIn</a></li>
+        <li><a href="https://github.com/Quantas">GitHub</a></li>
+      </ul>
+    </header>
+
+    <main>
+      <section class="block" aria-labelledby="work">
+        <h2 id="work">Work</h2>
+        <div class="body">
+          <p class="role"><strong>WIN Technology</strong>, Eau Claire, WI<br>Senior Software Engineer, 2019 to now</p>
+          <p>I manage Kubernetes clusters and the infrastructure automation behind them, built with Ansible and related tools. The job spans platform engineering and software development: keeping the platform healthy and easy to build on, and writing the services and tooling that run on it.</p>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="open-source">
+        <h2 id="open-source">Open source</h2>
+        <div class="body">
+          <h3><a href="https://sharkops.io">SharkOps</a></h3>
+          <p>Helm charts, Prometheus exporters and container images for Kubernetes, all Apache-2.0. Each one started as something I needed while running my own cluster.</p>
+          <ul class="projects">
+            <li><a href="https://github.com/sharkops-io/sharkops-universal">sharkops-universal</a> <span>A general-purpose chart for running any container image, with Service, Ingress, persistent volumes, probes, and environment from ConfigMaps and Secrets.</span></li>
+            <li><a href="https://github.com/sharkops-io/cnpg-cluster">cnpg-cluster</a> <span>A CloudNativePG Postgres cluster with WAL archiving and scheduled backups to S3-compatible storage.</span></li>
+            <li><a href="https://github.com/sharkops-io/oidc-proxy-ingress">oidc-proxy-ingress</a> <span>Puts an in-cluster service behind oauth2-proxy and an Ingress, using any OIDC provider.</span></li>
+            <li><a href="https://github.com/sharkops-io/netpol-coverage-exporter">netpol-coverage-exporter</a> <span>Per-pod NetworkPolicy and CiliumNetworkPolicy coverage, as Prometheus metrics.</span></li>
+            <li><a href="https://github.com/sharkops-io/alertmanager-github-issues">alertmanager-github-issues</a> <span>Keeps one GitHub issue open per firing Alertmanager alert group and closes it when the group resolves.</span></li>
+          </ul>
+          <p class="more"><a href="https://sharkops.io">sharkops.io</a> <a href="https://github.com/sharkops-io">All SharkOps repositories</a></p>
+
+          <h3><a href="https://github.com/Quantas/shark-ng-table">shark-ng-table</a></h3>
+          <p>A robust table for Angular built with Accessibility in mind.</p>
+          <p class="more"><a href="https://github.com/Quantas/shark-ng-table">Repository</a> <a href="shark-ng-table/">Live demo</a></p>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="earlier">
+        <h2 id="earlier">Earlier</h2>
+        <div class="body">
+          <p>Before moving into platform work, I built web applications with Java, Spring and Angular.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>&copy; 2026 Andrew Landsverk. <a href="https://github.com/quantasnet/website">Source on GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
