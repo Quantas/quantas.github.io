@@ -1,9 +1,9 @@
 /*
- * Direction: a quiet two-column CV in cool sea-ink tones, one typeface
- * (Schibsted Grotesk, variable). The single memorable element is the
- * waterline under the name, a nod to the shark naming across the projects;
- * it sweeps in once on load and is still under prefers-reduced-motion.
- * Everything else stays plain: no cards, no shadows, no labels.
+ * Direction: a deep-water band holds the intro, and its lower edge is a
+ * wave; below it, a quiet two-column CV in cool sea-ink tones. One typeface
+ * (Schibsted Grotesk, variable). The wave is the one memorable element, a
+ * nod to the shark naming across the projects; everything else stays plain:
+ * no cards, no shadows, no labels.
  */
 
 @font-face {
@@ -21,6 +21,10 @@
   --rule: #d3dce1;
   --accent: #0a6b75;
   --focus: #0a6b75;
+  --band: #0f2b3d;
+  --band-ink: #eef4f6;
+  --band-muted: #a9c0cc;
+  --band-accent: #7fd3d9;
   color-scheme: light;
 }
 
@@ -32,6 +36,7 @@
     --rule: #22313c;
     --accent: #5ec3ca;
     --focus: #5ec3ca;
+    --band: #06263a;
     color-scheme: dark;
   }
 }
@@ -43,6 +48,7 @@
   --rule: #22313c;
   --accent: #5ec3ca;
   --focus: #5ec3ca;
+  --band: #06263a;
   color-scheme: dark;
 }
 
@@ -85,71 +91,39 @@ a:focus-visible {
   border-radius: 2px;
 }
 
-.page {
+.wrap {
   max-width: 64rem;
   margin: 0 auto;
-  padding: clamp(3rem, 9vw, 7rem) max(1.25rem, env(safe-area-inset-left)) 3rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
-/* Intro */
+/* Intro: the deep-water band */
+
+.intro {
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  background: var(--band);
+  color: var(--band-ink);
+}
 
 .intro h1 {
-  margin: 0;
-  font-size: clamp(2.75rem, 9.5vw, 6.75rem);
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 750;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.035em;
 }
 
-.waterline {
-  display: block;
-  width: 100%;
-  height: 1.25rem;
-  margin: 1.25rem 0 1.75rem;
-  overflow: visible;
-}
-
-.waterline path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
-/* Reveal left to right once. The resting state is the unclipped line, so
-   anything that skips the animation still shows it. */
-.waterline {
-  animation: reveal 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.15s backwards;
-}
-
-@keyframes reveal {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .waterline {
-    animation: none;
-  }
-}
-
 .handle {
-  margin: 0 0 0.75rem;
-  color: var(--muted);
-  font-size: 1.0625rem;
+  margin: 0 0 1.5rem;
+  color: var(--band-muted);
 }
 
 .lead {
-  max-width: 36ch;
+  max-width: 40rem;
   margin: 0;
-  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
-  font-weight: 450;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.5;
 }
 
 .contact {
@@ -162,18 +136,36 @@ a:focus-visible {
   font-weight: 550;
 }
 
+.intro a {
+  color: var(--band-accent);
+}
+
+.intro a:focus-visible {
+  outline-color: var(--band-accent);
+}
+
+.edge {
+  display: block;
+  width: 100%;
+  height: clamp(2rem, 5vw, 3.5rem);
+  margin-top: 3rem;
+}
+
+.edge path {
+  fill: var(--paper);
+}
+
 /* Sections: heading in a narrow left column, content on the right */
 
 main {
-  margin-top: clamp(4rem, 10vw, 7rem);
+  padding-top: 3rem;
 }
 
 .block {
   display: grid;
   grid-template-columns: 11rem minmax(0, 1fr);
   gap: 0 2.5rem;
-  padding: 2.5rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0 0 2.5rem;
 }
 
 .block h2 {
@@ -257,7 +249,8 @@ main {
 /* Footer */
 
 .foot {
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
   border-top: 1px solid var(--rule);
   color: var(--muted);
   font-size: 0.9375rem;
@@ -270,7 +263,6 @@ main {
 @media (max-width: 44rem) {
   .block {
     grid-template-columns: minmax(0, 1fr);
-    padding: 2rem 0;
   }
 
   .block h2 {
