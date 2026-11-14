@@ -24,7 +24,10 @@ REQUIRED_TEXT = [
     "Kubernetes", "Ansible", "platform engineering", "SharkOps", "shark-ng-table", "Quantas",
 ]
 FORBIDDEN_TEXT = ["Nelnet", "gitshark", "QLAN", "shark-ci-server", "dbUnit", "QuantasNet"]
-SHARK_NG_TABLE_DEMO = "https://quantas.github.io/shark-ng-table/"
+# This repo is the Quantas user site, so every Quantas project Pages site is
+# served at www.quantasnet.com/<repo>/ by GitHub itself. A directory here with
+# a project's name would compete with that project, so there must be none.
+PROJECT_SITES = ["shark-ng-table", "shark-ng-table-samples", "wow-forever-atlas"]
 
 # (tag, attribute) pairs that make the browser fetch something.
 RESOURCE_ATTRS = {("link", "href"), ("script", "src"), ("img", "src"), ("source", "src")}
@@ -205,15 +208,17 @@ class SiteTests(unittest.TestCase):
             leftover = COLOR_LITERAL.findall(strip_token_blocks(f.read_text(encoding="utf-8")))
             self.assertEqual(leftover, [], f.relative_to(SITE))
 
-    def test_shark_ng_table_redirect(self):
-        path = SITE / "shark-ng-table" / "index.html"
-        self.assertTrue(path.is_file())
-        page = parse(path)
-        refresh = [a for a in page.find("meta") if (a.get("http-equiv") or "").lower() == "refresh"]
-        self.assertEqual(refresh[0].get("content"), f"0; url={SHARK_NG_TABLE_DEMO}")
-        canonical = [a for a in page.find("link") if a.get("rel") == "canonical"]
-        self.assertEqual(canonical[0].get("href"), SHARK_NG_TABLE_DEMO)
-        self.assertIn(SHARK_NG_TABLE_DEMO, {a.get("href") for a in page.find("a")})
+    def test_no_paths_shadow_project_sites(self):
+        for name in PROJECT_SITES:
+            self.assertFalse((SITE / name).exists(), name)
+
+    def test_shark_ng_table_demo_link(self):
+        hrefs = {a.get("href") for a in self.index().find("a")}
+        self.assertIn("https://www.quantasnet.com/shark-ng-table/", hrefs)
+
+    def test_footer_source_link(self):
+        hrefs = {a.get("href") for a in self.index().find("a")}
+        self.assertIn("https://github.com/Quantas/quantas.github.io", hrefs)
 
     def test_404(self):
         path = SITE / "404.html"
