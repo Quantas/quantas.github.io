@@ -10,4 +10,6 @@ Plain HTML and CSS in `site/`, with no build step and no dependencies.
 
 This is the `Quantas` user site, so GitHub serves every `Quantas` project Pages site under the same domain, at `www.quantasnet.com/<repo>/`. Don't add a top-level directory named after a project repo; it would compete with that project's site.
 
+The exception is a project that moved away: its old path gets a redirect page, so existing links keep working. `site/shark-ng-table/` sends visitors to https://shark-ng-table.sharkops.io/, keeping the `#/...` part of the URL.
+
 Licensed under Apache-2.0.

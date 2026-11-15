@@ -17,7 +17,7 @@ REQUIRED_LINKS = [
     "https://github.com/Quantas",
     "https://sharkops.io",
     "https://github.com/sharkops-io",
-    "https://github.com/Quantas/shark-ng-table",
+    "https://github.com/sharkops-io/shark-ng-table",
 ]
 REQUIRED_TEXT = [
     "Senior Software Engineer", "WIN Technology", "Eau Claire, WI", "2019",
@@ -27,7 +27,11 @@ FORBIDDEN_TEXT = ["Nelnet", "gitshark", "QLAN", "shark-ci-server", "dbUnit", "Qu
 # This repo is the Quantas user site, so every Quantas project Pages site is
 # served at www.quantasnet.com/<repo>/ by GitHub itself. A directory here with
 # a project's name would compete with that project, so there must be none.
-PROJECT_SITES = ["shark-ng-table", "shark-ng-table-samples", "wow-forever-atlas"]
+# shark-ng-table moved to sharkops-io; its old path is a redirect page here (see MOVED).
+PROJECT_SITES = ["shark-ng-table-samples", "wow-forever-atlas"]
+
+# Projects that moved away. Their old www.quantasnet.com/<name>/ path is a redirect page.
+MOVED = {"shark-ng-table": "https://shark-ng-table.sharkops.io/"}
 
 # (tag, attribute) pairs that make the browser fetch something.
 RESOURCE_ATTRS = {("link", "href"), ("script", "src"), ("img", "src"), ("source", "src")}
@@ -214,7 +218,22 @@ class SiteTests(unittest.TestCase):
 
     def test_shark_ng_table_demo_link(self):
         hrefs = {a.get("href") for a in self.index().find("a")}
-        self.assertIn("https://www.quantasnet.com/shark-ng-table/", hrefs)
+        self.assertIn("https://shark-ng-table.sharkops.io/", hrefs)
+
+    def test_moved_projects_redirect(self):
+        for name, target in MOVED.items():
+            path = SITE / name / "index.html"
+            self.assertTrue(path.is_file(), name)
+            raw = path.read_text(encoding="utf-8")
+            page = parse(path)
+            canonical = [a for a in page.find("link") if a.get("rel") == "canonical"]
+            self.assertEqual([c.get("href") for c in canonical], [target], name)
+            # Script keeps hash routes; meta refresh covers no-JS; a visible link covers everything else.
+            self.assertIn(f"location.replace('{target}' + location.hash)", raw, name)
+            refresh = [m for m in page.find("meta") if m.get("http-equiv") == "refresh"]
+            self.assertEqual([m.get("content") for m in refresh], [f"0; url={target}"], name)
+            self.assertIn(target, {a.get("href") for a in page.find("a")}, name)
+            self.assertFalse([a for a in page.find("link") if a.get("rel") == "stylesheet"], name)
 
     def test_footer_source_link(self):
         hrefs = {a.get("href") for a in self.index().find("a")}
