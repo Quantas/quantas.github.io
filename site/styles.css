@@ -232,6 +232,10 @@ main {
   font-weight: 600;
 }
 
+.projects span a {
+  font-weight: inherit;
+}
+
 .projects span {
   display: block;
   color: var(--muted);
