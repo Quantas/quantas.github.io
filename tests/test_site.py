@@ -28,7 +28,7 @@ FORBIDDEN_TEXT = ["Nelnet", "gitshark", "QLAN", "shark-ci-server", "dbUnit", "Qu
 # served at www.quantasnet.com/<repo>/ by GitHub itself. A directory here with
 # a project's name would compete with that project, so there must be none.
 # shark-ng-table moved to sharkops-io; its old path is a redirect page here (see MOVED).
-PROJECT_SITES = ["shark-ng-table-samples", "wow-forever-atlas"]
+PROJECT_SITES = ["shark-ng-table-samples"]
 
 # Projects that moved away. Their old www.quantasnet.com/<name>/ path is a redirect page.
 MOVED = {"shark-ng-table": "https://shark-ng-table.sharkops.io/"}
